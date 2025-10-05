@@ -8,6 +8,8 @@ interface WorkflowComponent {
   quantity: number;
   frequency: 'hourly' | 'daily' | 'weekly' | 'monthly';
   cost?: number;
+  businessValue?: string;
+  roiMultiplier?: number;
 }
 
 interface CostAnalysis {
@@ -22,6 +24,10 @@ interface CostAnalysis {
     apiCalls: number;
   };
   raiCost: number;
+  yearlyProjection?: number;
+  growthScenario?: number;
+  roi?: number;
+  savings?: number;
 }
 
 interface AgentResponse {
@@ -43,10 +49,21 @@ export default function App() {
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [components, setComponents] = useState<WorkflowComponent[]>([
-    { id: '1', name: 'AI Agent', type: 'agent', quantity: 1, frequency: 'daily' }
+    {
+      id: '1',
+      name: 'AI Agent',
+      type: 'agent',
+      quantity: 1,
+      frequency: 'daily',
+      businessValue: 'Automates customer service inquiries',
+      roiMultiplier: 3.2
+    }
   ]);
   const [costAnalysis, setCostAnalysis] = useState<CostAnalysis | null>(null);
   const [notification, setNotification] = useState<string>('');
+  const [selectedTimeframe, setSelectedTimeframe] = useState<'monthly' | 'yearly' | '3-year'>('monthly');
+  const [growthRate, setGrowthRate] = useState<number>(15); // 15% monthly growth
+  const [showExplanations, setShowExplanations] = useState<boolean>(true);
 
   const API_KEY = 'sk-default-obhGvAo6gG9YT9tu6ChjyXLqnw7TxSGY';
   const CREDITS_AGENT_ID = '68e27df21d634c8310980f7d';
