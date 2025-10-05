@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import parseLLMJson from '../utils/jsonParser';
+import { useState, useEffect } from 'react';
+import parseLLMJson from './utils/jsonParser';
 
 interface WorkflowComponent {
   id: string;
@@ -217,7 +217,7 @@ export default function App() {
             return (
               <path
                 key={index}
-                d={`M 50 50 L ${startX} ${startY} A 30 30 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}`}
+                d={`M 50 50 L ${startX} ${startY} A 30 30 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
                 fill={item.color}
                 stroke="white"
                 strokeWidth="1"
